@@ -1,0 +1,339 @@
+/* ===================== GLOBAL ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f6f4ff;
+  color: #1a0734;
+  line-height: 1.6;
+}
+
+.container {
+  width: 95%;
+  max-width: 1300px;
+  margin: auto;
+}
+
+/* ===================== HEADER ===================== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 100;
+  border-bottom: 1px solid #ffe9fa;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  color: #1a0734;
+}
+
+.logo svg {
+  width: 50px;
+  height: 50px;
+  fill: #6b46ff;
+}
+
+.brand-text h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.brand-text p {
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+/* ===================== NAV ===================== */
+.nav {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav a {
+  color: #27104e;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav a:hover {
+  color: #e03dc5;
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #58044c;
+  transition: 0.3s ease;
+}
+
+.nav a:hover::after {
+  width: 100%;
+}
+
+/* Buttons */
+.btn-primary {
+  background: #e03dc5;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: #58044c;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #58044c;
+  color: #58044c;
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-ghost:hover {
+  background: #6b46ff;
+  color: #fff;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  padding: 70px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #ffeaff, #ffffff);
+  border-radius: 20px;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left {
+  width: 55%;
+  animation: fadeUp 0.7s ease;
+}
+
+.hero-left h2 {
+  font-size: 2.5rem;
+  color: #2b0d6b;
+  font-weight: 800;
+}
+
+.hero-left p {
+  margin-top: 10px;
+  opacity: 0.75;
+  font-size: 1rem;
+}
+
+.cta-row {
+  margin-top: 25px;
+  display: flex;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(130, 96, 255, 0.15);
+  width: 48%;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Faint decorative halo */
+.hero::after {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 250px;
+  height: 250px;
+  background: #e7ddff;
+  filter: blur(70px);
+  border-radius: 50%;
+}
+
+/* ===================== MAIN GRID ===================== */
+.grid {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 65% 35%;
+  gap: 40px;
+}
+
+h3 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: #2b0d6b;
+}
+
+/* Announcement List */
+.ann-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ann-item {
+  display: flex;
+  gap: 15px;
+  background: white;
+  padding: 18px;
+  border-radius: 15px;
+  box-shadow: 0 4px 18px rgba(80, 60, 150, 0.1);
+}
+
+.ann-thumb {
+  width: 80px;
+  height: 70px;
+  background: #d2c5ff;
+  border-radius: 10px;
+}
+
+/* Sermon sidebar */
+.sermon-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 15px;
+  box-shadow: 0 4px 18px rgba(80, 60, 150, 0.1);
+}
+
+.sermon-thumb {
+  width: 100%;
+  height: 150px;
+  background: #d3c3ff;
+  border-radius: 10px;
+}
+
+/* ===================== FOOTER ===================== */
+.footer {
+  margin-top: 60px;
+  text-align: center;
+  padding: 25px 0;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .hero-left {
+    width: 100%;
+  }
+
+  .cta-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    padding: 20px;
+    position: absolute;
+    right: 10px;
+    top: 70px;
+    gap: 15px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+
+/* Countdown Style */
+.countdown {
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #5a2fc2;
+}
+
+/* Hourly Notification Popup */
+.notification-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #5a2fc2;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  animation: fadeIn 0.4s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  z-index: 99999;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

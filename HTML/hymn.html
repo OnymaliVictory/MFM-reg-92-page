@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MFM — Hymns</title>
+  <link rel="stylesheet" href="/CSS/style.css">
+  <link rel="stylesheet" href="/CSS/hymn.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header">
+    <a href="index.html" class="brand">
+      <div class="logo">
+        <svg viewBox="0 0 24 24">
+           <img src="/IMG/mfmlogoman3.png" style="margin:6px; width:60px;" alt="">
+        </svg>
+      </div>
+        <div class="brand-text">
+          <h1>MFM Mid-West Reg.92 Sapele Delta State.</h1>
+          <p>Deliverance • Worship • Miracles</p>
+        </div>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="bible.html">Bible</a>
+      <a href="hymn.html">Hymns</a>
+      <a href="testimony.html">Testimonies</a>
+      <a href="prayer_book.html">Prayer Book</a>
+      <a href="admin_login.html" class="btn btn-ghost">Admin</a>
+      <button class="btn btn-primary">Donate</button>
+    </nav>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" style="padding:50px 20px; margin-top:20px;">
+    <div class="hero-left" style="width:100%;">
+      <h2 style="font-size:2.2rem;">Hymn Search</h2>
+      <p style="max-width:700px; margin-top:10px;">
+        Search for your favorite hymns by title, number, or lyrics. Results will appear below.
+      </p>
+
+      <div class="search-card" style="margin-top:20px;">
+        <input type="text" id="searchInput" placeholder="Search by title, number, or lyrics..." style="width:70%; padding:10px; margin-right:10px; border-radius:8px; border:1px solid #ccc;">
+        <button id="searchBtn" class="btn btn-primary">Search</button>
+        <div id="loading" class="loading" style="display:none; margin-top:10px;">Searching...</div>
+      </div>
+
+      <div id="results" style="margin-top:20px;"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer" style="margin-top:50px;">
+  © <span id="yearHx"></span> MFM Ministries — All rights reserved.
+</footer>
+
+<!-- ===================== SCRIPT ===================== -->
+<script>
+  // Toggle mobile menu
+  function toggleMenu() {
+    document.querySelector('.nav').classList.toggle('open');
+  }
+
+  // Current year
+  document.getElementById('yearHx').textContent = new Date().getFullYear();
+
+  // Fade-in animation for search card
+  const searchCard = document.querySelector('.search-card');
+  searchCard.style.opacity = 0;
+  searchCard.style.transform = 'translateY(20px)';
+  window.addEventListener('load', () => {
+    searchCard.style.transition = 'all 0.7s ease';
+    searchCard.style.opacity = 1;
+    searchCard.style.transform = 'translateY(0)';
+  });
+</script>
+
+<script src="/JS/hymns_public.js"></script>
+<script src="/JS/hymn.js"></script>
+<script src="/JS/firebase.js" type="module"></script>
+
+</body>
+</html>

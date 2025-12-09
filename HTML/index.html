@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MFM — Home</title>
+  <link rel="stylesheet" href="/CSS/style.css">
+  <link rel="stylesheet" href="/CSS/global.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- ================= HEADER ================= -->
+    <header class="header">
+      <a href="index.html" class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 24 24">
+             <img src="/IMG/mfmlogoman3.png" style="margin:6px; width:60px;" alt="">
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>MFM Mid-West Reg.92 Sapele Delta State.</h1>
+          <p>Deliverance • Worship • Miracles</p>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="bible.html">Bible</a>
+        <a href="hymn.html">Hymn</a>
+        <a href="testimony.html">Testimonies</a>
+        <a href="prayer_book.html">Prayer Book</a>
+        <a href="../HTML/admin/admin.html" class="btn btn-ghost">Admin</a>
+        <button class="btn btn-primary">Donate</button>
+      </nav>
+
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="hero-left">
+        <h2>Welcome to Mountain of Fire & Miracles Ministries Mid-West Reg.92 Sapele Delta State.</h2>
+        <p>
+          Join us weekly for powerful worship, deliverance services, and testimonies.
+          Stay connected for announcements and sermons.
+        </p>
+
+        <div class="cta-row">
+        <div class="card next-service-card">
+          <h3>Next Service</h3>
+
+          <!-- This will be filled automatically by JS -->
+          <p class="meta" id="service-title">Loading next service…</p>
+
+          <!-- Countdown updates live -->
+          <div id="countdown" class="countdown"></div>
+
+          <!-- Notification button -->
+          <button class="btn btn-primary" id="notifyBtn">
+            Enable Hourly Reminder
+          </button>
+          <audio id="alertSound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"></audio>
+
+        </div>
+
+<div class="card upcoming-program-card">
+  <h3>Upcoming Program</h3>
+  <p class="meta" id="upcomingProgramTitle">Loading…</p>
+  <p class="meta" id="upcomingProgramDate"></p>
+  <!-- <p id="upcomingProgramDesc"></p>
+  <p id="upcomingProgramActivities"></p> -->
+ 
+  
+  <!-- <div id="program-countdown" class="countdown"></div> -->
+  
+  <!-- <button class="btn btn-primary" id="reminderBtn">Enable Reminder</button>
+  <button class="btn btn-primary" onclick="location.href='upcoming_programs.html'">More Information</button> -->
+</div>
+
+
+          <div class="card">
+            <a href="/HTML/prayer_book.html">
+            <h3>Prayer Line</h3>
+            <p class="meta">Download available Prayer Booklet</p>
+              </a>
+          </div>
+        </div>
+      </div>
+
+<div class="card" style="margin-top:40px;">
+  <h3>Get Directions to MFM Ministries</h3>
+  <iframe 
+    width="100%" 
+    height="400" 
+    frameborder="0" 
+    scrolling="no" 
+    marginheight="0" 
+    marginwidth="0" 
+    src="https://www.openstreetmap.org/export/embed.html?bbox=5.9000,5.9000,5.9050,5.9050&layer=mapnik&marker=5.9025,5.9025">
+  </iframe>
+</div>
+
+
+    </section>
+
+    <!-- ================= MAIN GRID ================= -->
+    <main class="grid">
+      
+      <!-- Announcements -->
+<section>
+  <h3>Announcements</h3>
+  <div class="ann-list" id="annListIndex">
+    <p>Loading announcements...</p>
+  </div>
+</section>
+
+
+
+      <!-- Sidebar -->
+<aside>
+  <h3>Latest Sermons</h3>
+
+  <div id="sermonsList">
+    <p>Loading sermons...</p>
+  </div>
+
+  <div style="height:16px"></div>
+
+  <div class="card">
+    <h3>Subscribe</h3>
+    <p class="meta">Get sermon notifications via email (admin setup required).</p>
+  </div>
+</aside>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+      © <span id="year"></span> Mountain of Fire & Miracles Ministries — All rights reserved.
+    </footer>
+
+  </div>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    function toggleMenu() {
+      const nav = document.querySelector('.nav');
+      nav.classList.toggle("open");
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+<script src="/JS/script.js"></script>
+<script src="/JS/firebase.js" type="module"></script>
+<script src="/JS/announcement_firebase.js" type="module"></script>
+<script type="module" src="/JS/live.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", loadUserAnnouncements);
+
+function loadUserAnnouncements() {
+  let announcements = JSON.parse(localStorage.getItem("announcements")) || [];
+  let container = document.getElementById("annListIndex");
+
+  if (announcements.length === 0) {
+    container.innerHTML = "<p>No announcements available.</p>";
+    return;
+  }
+
+  container.innerHTML = "";
+
+  announcements.forEach(ann => {
+    let card = document.createElement("div");
+    card.classList.add("announcement-card");
+
+    card.innerHTML = `
+      <h4>${ann.title}</h4>
+      <p>${ann.text}</p>
+      ${ann.image ? `<img src="${ann.image}" style="width:100%; margin-top:10px; border-radius:10px;">` : ""}
+    `;
+
+    container.appendChild(card);
+  });
+}
+</script>
+
+</body>
+</html>

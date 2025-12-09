@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MFM — PDF Library</title>
+
+  <link rel="stylesheet" href="/CSS/style.css">
+  <link rel="stylesheet" href="/CSS/global.css">
+
+  <style>
+    /* Search Bar */
+    .search-box {
+      margin: 20px 0;
+      display: flex;
+      gap: 10px;
+    }
+    .search-box input {
+      flex: 1;
+    }
+
+    /* File card */
+    .pdf-card {
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 14px;
+    }
+
+    .pdf-card h4 {
+      margin: 0 0 6px;
+    }
+
+    .pdf-card button {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* Responsive fixes */
+    @media(max-width: 768px){
+      .search-box {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="index.html" class="brand">
+      <div class="logo">
+        <svg viewBox="0 0 24 24">
+           <img src="/IMG/mfmlogoman3.png" style="margin:6px; width:60px;" alt="">
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>MFM Mid-West Reg.92 Sapele Delta State.</h1>
+        <p>Deliverance • Worship • Miracles</p>
+      </div>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="bible.html">Bible</a>
+      <a href="hymn.html">Hymn</a>
+      <a href="testimony.html">Testimonies</a>
+      <a href="prayer_book.html">Prayer Book</a>
+      <a href="../HTML/admin/admin.html" class="btn btn-ghost">Admin</a>
+      <button class="btn btn-primary">Donate</button>
+    </nav>
+
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </header>
+
+  <!-- PAGE TITLE -->
+  <section class="hero" style="padding: 20px;">
+    <h2>📘 Download Prayer Booklets & PDF Resources</h2>
+    <p>Search and download available PDF sermons, programs, hymns, and prayer booklets.</p>
+  </section>
+
+  <!-- SEARCH BAR -->
+  <!-- <div class="search-box">
+    <input type="text" class="input" id="searchInput" placeholder="Search PDF by title...">
+    <button class="btn btn-primary" onclick="searchPDF()">Search</button>
+  </div> -->
+
+  <!-- RESULTS -->
+  <main id="pdfList"></main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © <span id="year"></span> Mountain of Fire & Miracles Ministries — All rights reserved.
+  </footer>
+
+</div>
+
+<script>
+  function toggleMenu() {
+    const nav = document.querySelector('.nav');
+    nav.classList.toggle("open");
+  }
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+<!-- PDF HANDLING SCRIPT -->
+<script>
+  // Example Data (Replace with Firebase later)
+  let pdfFiles = [
+    {
+      title: "Prayer Rain Manual",
+      description: "Official MFM prayer rain booklet.",
+      url: "/PDF/prayer_rain.pdf"
+    },
+    {
+      title: "Deliverance Hour Manual",
+      description: "Weekly deliverance prayers.",
+      url: "/PDF/deliverance_hour.pdf"
+    },
+    {
+      title: "2025 70 Days Prayer & Fasting",
+      description: "Full fasting program.",
+      url: "/PDF/70days_2025.pdf"
+    }
+  ];
+
+  function displayPDFs(list) {
+    const container = document.getElementById("pdfList");
+  
+    if (list.length === 0) {
+      container.innerHTML = "<p>No PDF found.</p>";
+      return;
+    }
+
+    container.innerHTML = "";
+    list.forEach(pdf => {
+      let card = document.createElement("div");
+      card.classList.add("pdf-card");
+
+      card.innerHTML = `
+        <h4>${pdf.title}</h4>
+        <p>${pdf.description}</p>
+        <button class="btn btn-primary" onclick="window.open('${pdf.url}', '_blank')">
+          Download PDF
+        </button>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  function searchPDF() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const filtered = pdfFiles.filter(pdf => pdf.title.toLowerCase().includes(query));
+    displayPDFs(filtered);
+  }
+
+  // Load all on startup
+  displayPDFs(pdfFiles);
+</script>
+
+</body>
+</html>

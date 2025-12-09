@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MFM — Admin Dashboard</title>
+<link rel="stylesheet" href="/CSS/style.css">
+<link rel="stylesheet" href="/CSS/admin.css">
+<link rel="stylesheet" href="/CSS/global.css">
+<style>
+  body { background:#f4f4f9; font-family:sans-serif; margin:0; padding:0; }
+  .container { max-width:1200px; margin:auto; padding:20px; }
+  .card { background:white; border-radius:15px; padding:20px; margin-bottom:20px; box-shadow:0 10px 25px rgba(130,96,255,0.15);}
+  .btn-primary, .btn-danger, .btn-approve { border:none; color:#fff; font-weight:600; border-radius:8px; cursor:pointer;}
+  .btn-primary { background:#6b46ff; padding:10px 18px; } .btn-primary:hover{background:#512fdb;}
+  .btn-danger { background:#e53e3e; padding:8px 14px; } .btn-approve{background:#38a169; padding:8px 14px;}
+  input, textarea { width:100%; padding:8px 10px; margin:6px 0; border-radius:6px; border:1px solid #ccc; }
+  .grid { display:grid; grid-template-columns:65% 35%; gap:40px; margin-top:30px; }
+  aside .card{position:sticky; top:20px;}
+  img { max-width:100%; border-radius:8px; margin-top:8px; }
+  @media(max-width:1024px){.grid{grid-template-columns:1fr;} aside{margin-top:20px;} }
+  @media(max-width:768px){.nav{display:none; flex-direction:column; gap:10px;} .nav.open{display:flex;}
+  .menu-toggle{display:block;background:#6b46ff;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer;}
+  header .brand{flex-wrap:wrap;} .hero-left h2{font-size:1.8rem;} }
+  @media(max-width:480px){.hero-left h2{font-size:1.5rem;} .btn-primary,.btn-danger,.btn-approve{padding:8px 12px;font-size:0.9rem;} }
+  .program-card { background:#fff; padding:12px; border-radius:8px; margin-bottom:12px; border:1px solid #eee; }
+  .program-actions { margin-top:8px; display:flex; gap:8px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="index.html" class="brand">
+      <div class="logo"><svg viewBox="0 0 24 24"><path d="M12 2C10 6 6 7 6 11c0 4 6 7 6 11 0-4 6-7 6-11 0-4-4-5-6-9z"/></svg></div>
+      <div class="brand-text"><h1>MFM Ministries</h1><p>Deliverance • Worship • Miracles</p></div>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="admin_dashboard.html">Dashboard</a>
+      <a href="bible.html">Bible</a>
+      <a href="hymn.html">Hymn</a>
+      <a href="testimony.html">Testimonies</a>
+      <a href="prayer_book.html">Prayer Book</a>
+      <button class="btn btn-primary">Logout</button>
+    </nav>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:50px 20px;">
+    <div class="hero-left" style="width:100%;">
+      <h2 style="font-size:2.2rem;">Admin Dashboard</h2>
+      <p style="max-width:700px; margin-top:10px;">Manage testimonies, announcements, and upcoming services.</p>
+    </div>
+  </section>
+
+  <!-- MAIN GRID -->
+  <main class="grid">
+    <section>
+
+      <!-- Testimonies -->
+      <div class="card">
+        <h3>Submitted Testimonies</h3>
+        <div id="testimonyList"></div>
+      </div>
+
+      <!-- Announcements Management -->
+      <div class="card">
+        <h3>Add New Announcement</h3>
+        <input type="text" id="annTitle" placeholder="Title">
+        <textarea id="annText" placeholder="Announcement text"></textarea>
+        <input type="file" id="annImage" accept="image/*">
+        <button class="btn-primary" onclick="addAnnouncement()">Add Announcement</button>
+      </div>
+
+      <section>
+        <h3>Existing Announcements</h3>
+        <div class="ann-list"></div>
+      </section>
+
+      <!-- PROGRAMS MANAGEMENT -->
+      <div class="card" style="padding:20px;">
+        <h3>Add / Edit Upcoming Program</h3>
+        <input type="text" id="progTitle" placeholder="Program Title">
+        <input type="text" id="progSchedule" placeholder="Schedule (e.g., Monday – Thursday • 4:30 PM)">
+        <input type="datetime-local" id="progDate" placeholder="Select Date & Time">
+        <textarea id="progDesc" placeholder="Description"></textarea>
+        <div style="margin-top:10px;">
+          <button class="btn-primary" id="saveProgramBtn">Save Program</button>
+        </div>
+      </div>
+
+      <section style="margin-top:30px;">
+        <h3>Current Programs</h3>
+        <div class="program-list"></div>
+      </section>
+
+    </section>
+
+    <!-- SIDEBAR -->
+    <aside>
+      <div class="card">
+        <h3>Statistics</h3>
+        <p class="meta" id="totalCount">Total Submissions: 0</p>
+        <p class="meta" id="approvedCount">Approved: 0</p>
+        <p class="meta" id="anonymousCount">Anonymous: 0</p>
+        <p class="meta" id="annCount">Total Announcements: 0</p>
+        <p class="meta" id="serviceCount">Total Services: 0</p>
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © <span id="year"></span> Mountain of Fire & Miracles Ministries — All rights reserved.
+  </footer>
+
+</div>
+
+<!-- ====== MODULES: load firebase initializer FIRST, then admin scripts ====== -->
+<script type="module" src="/JS/firebase.js"></script>
+<script type="module" src="/JS/admin.js"></script>
+
+<!-- Announcement load on page (keeps localStorage announcement code unchanged) -->
+<script>
+  // Load announcements on page load
+  document.addEventListener("DOMContentLoaded", loadAnnouncements);
+
+  function addAnnouncement() {
+    let title = document.getElementById("annTitle").value.trim();
+    let text = document.getElementById("annText").value.trim();
+    let imageInput = document.getElementById("annImage");
+
+    if (!title || !text) {
+      alert("Title and text are required.");
+      return;
+    }
+
+    // Convert image to Base64
+    if (imageInput.files.length > 0) {
+      let reader = new FileReader();
+      reader.onload = function (e) {
+        saveAnnouncement(title, text, e.target.result);
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    } else {
+      saveAnnouncement(title, text, null);
+    }
+  }
+
+  function saveAnnouncement(title, text, image) {
+    let announcements = JSON.parse(localStorage.getItem("announcements")) || [];
+
+    announcements.push({
+      id: Date.now(),
+      title,
+      text,
+      image
+    });
+
+    localStorage.setItem("announcements", JSON.stringify(announcements));
+
+    document.getElementById("annTitle").value = "";
+    document.getElementById("annText").value = "";
+    document.getElementById("annImage").value = "";
+
+    loadAnnouncements();
+  }
+
+  function loadAnnouncements() {
+    let announcements = JSON.parse(localStorage.getItem("announcements")) || [];
+    let container = document.querySelector(".ann-list");
+    container.innerHTML = "";
+
+    announcements.forEach(ann => {
+      let card = document.createElement("div");
+      card.classList.add("announcement-card");
+
+      card.innerHTML = `
+        <h4>${ann.title}</h4>
+        <p>${ann.text}</p>
+        ${ann.image ? `<img src="${ann.image}" style="width:100%; border-radius:10px; margin-top:10px;">` : ""}
+        <button onclick="deleteAnnouncement(${ann.id})" class="btn-delete">Delete</button>
+      `;
+
+      container.appendChild(card);
+    });
+  }
+
+  function deleteAnnouncement(id) {
+    let announcements = JSON.parse(localStorage.getItem("announcements")) || [];
+    announcements = announcements.filter(a => a.id !== id);
+    localStorage.setItem("announcements", JSON.stringify(announcements));
+    loadAnnouncements();
+  }
+</script>
+
+<!-- small debug helper so you can see firebase readiness in console -->
+<script>
+  (function(){
+    document.addEventListener("DOMContentLoaded", () => {
+      if (document.getElementById('year')) document.getElementById('year').textContent = new Date().getFullYear();
+      console.log("Admin page loaded. window.db:", window.db);
+    });
+  })();
+</script>
+
+</body>
+</html>

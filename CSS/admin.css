@@ -1,0 +1,30 @@
+.program-card {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.program-card h4 { margin: 5px 0; }
+
+.prog-img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  margin: 8px 0;
+  border-radius: 8px;
+}
+
+.edit-btn, .delete-btn {
+  padding: 8px 12px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+}
+
+.edit-btn { background: #38a169; }
+.delete-btn { background: #e53e3e; }

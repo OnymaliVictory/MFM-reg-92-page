@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MFM — Home</title>
+  <link rel="stylesheet" href="/CSS/style.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- ================= HEADER ================= -->
+    <header class="header">
+      <a href="index.html" class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 24 24">
+             <img src="/IMG/mfmlogoman3.png" style="margin:6px; width:60px;" alt="">
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>MFM Mid-West Reg.92 Sapele Delta State.</h1>
+          <p>Deliverance • Worship • Miracles</p>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="bible.html">Bible</a>
+        <a href="hymn.html">Hymn</a>
+        <a href="testimony.html">Testimonies</a>
+        <a href="prayer_book.html">Prayer Book</a>
+        <a href="admin_login.html" class="btn btn-ghost">Admin</a>
+        <button class="btn btn-primary">Donate</button>
+      </nav>
+
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="hero-left">
+        <h2>Welcome to Mountain of Fire & Miracles Ministries</h2>
+        <p>
+          Join us weekly for powerful worship, deliverance services, and testimonies.
+          Stay connected for announcements and sermons.
+        </p>
+
+        <div class="cta-row">
+        <div class="card next-service-card">
+          <h3>Next Service</h3>
+
+          <!-- This will be filled automatically by JS -->
+          <p class="meta" id="service-title">Loading next service…</p>
+
+          <!-- Countdown updates live -->
+          <div id="countdown" class="countdown"></div>
+
+          <!-- Notification button -->
+          <button class="btn btn-primary" id="notifyBtn">
+            Enable Hourly Reminder
+          </button>
+        </div>
+
+
+        <div class="card">
+          <h3>Upcoming Programs</h3>
+          <p class="meta">
+            Monday – Thursday • 4:30 PM  
+            <br>The God of the Eleventh Hour Program
+          </p>
+
+          <button class="btn btn-primary" onclick="location.href='upcoming_programs_update.html'">
+            More Information
+          </button>
+        </div>
+
+
+          <div class="card">
+            <h3>Prayer Line</h3>
+            <p class="meta">Submit a request and our prayer team will intercede for you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MAIN GRID ================= -->
+    <main class="grid">
+      
+      <!-- Announcements -->
+      <section>
+        <h3>Announcements</h3>
+        <div class="ann-list">
+
+          <article class="ann-item">
+            <div class="ann-thumb">Image</div>
+            <div>
+              <strong>Power Must Change Hands</strong>
+              <div class="meta">Dec 31 • 6:00 PM</div>
+              <p class="meta">Join our annual night of power for deliverance and miracles.</p>
+            </div>
+          </article>
+
+          <article class="ann-item">
+            <div class="ann-thumb">Image</div>
+            <div>
+              <strong>Prayer Meeting</strong>
+              <div class="meta">Wednesdays • 5:00 AM</div>
+              <p class="meta">Start your week with early morning fire prayers.</p>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Sidebar -->
+      <aside>
+        <h3>Latest Sermons</h3>
+
+        <div class="sermon-card">
+          <div class="sermon-thumb">Thumbnail</div>
+          <strong>God of Miracles — Pastor</strong>
+          <div class="meta">Jan 5 • 45m</div>
+        </div>
+
+        <div style="height:16px"></div>
+
+        <div class="card">
+          <h3>Subscribe</h3>
+          <p class="meta">Get sermon notifications via email (admin setup required).</p>
+        </div>
+      </aside>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+      © <span id="year"></span> Mountain of Fire & Miracles Ministries — All rights reserved.
+    </footer>
+
+  </div>
+
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    function toggleMenu() {
+      const nav = document.querySelector('.nav');
+      nav.classList.toggle("open");
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+<script src="/JS/script.js"></script>
+<script src="/JS/firebase.js" type="module"></script>
+</body>
+</html>

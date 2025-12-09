@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MFM — Gospel Song Search</title>
+  <link rel="stylesheet" href="/CSS/style.css">
+  <link rel="stylesheet" href="/CSS/bible.css">
+</head>
+<body>
+
+    <div class="container">
+<!-- ===================== HEADER ===================== -->
+<header class="header">
+  <a href="index.html" class="brand">
+    <div class="logo">
+ <img src="/IMG/mfmlogoman3.png" style="margin:6px; width:60px;" alt="">
+
+           </div>
+        <div class="brand-text">
+          <h1>MFM Mid-West Reg.92 Sapele Delta State.</h1>
+          <p>Deliverance • Worship • Miracles</p>
+        </div>
+  </a>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="bible.html">Bible</a>
+    <a href="hymn.html">Hymn</a>
+    <a href="testimony.html">Testimonies</a>
+    <a href="prayer_book.html">Prayer Book</a>
+    <a href="admin_login.html" class="btn btn-ghost">Admin</a>
+    <button class="btn btn-primary">Donate</button>
+  </nav>
+
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+</header>
+
+<!-- ===================== SEARCH CONTAINER ===================== -->
+
+  <section class="hero" style="padding:50px 20px;">
+    <div class="hero-left" style="width:100%;">
+      <h2 style="font-size:2.2rem;">Gospel Song Search</h2>
+      <p style="max-width:700px; margin-top:10px;">
+        Search for gospel songs online. Click search and view results directly on YouTube.
+      </p>
+
+      <div class="search-card" style="margin-top:20px;">
+        <h3>Search a Song</h3>
+        <input type="text" id="song" placeholder="Song title (e.g., Amazing Grace)">
+        <button id="searchBtn" class="btn-primary">Search</button>
+      </div>
+
+      <div class="result-card" id="result-card" style="display:none; margin-top:20px;">
+        <h3 id="result-title"></h3>
+        <p id="result-link"></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  © <span id="year"></span> MFM Ministries — All rights reserved.
+</footer>
+
+<!-- ===================== SCRIPT ===================== -->
+<script>
+  // Toggle mobile menu
+  function toggleMenu() {
+    document.querySelector('.nav').classList.toggle('open');
+  }
+
+  // Current year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Gospel song search function
+  document.getElementById("searchBtn").addEventListener("click", function() {
+    const song = document.getElementById("song").value.trim();
+    const resultCard = document.getElementById("result-card");
+    const resultTitle = document.getElementById("result-title");
+    const resultLink = document.getElementById("result-link");
+
+    if(song === "") {
+      alert("Please enter a song title to search.");
+      return;
+    }
+
+    // Create YouTube search URL
+    const searchURL = "https://www.youtube.com/results?search_query=" + encodeURIComponent(song + " gospel");
+
+    // Show result card with link
+    resultCard.style.display = "block";
+    resultTitle.textContent = "Search Results for: " + song;
+    resultLink.innerHTML = `<a href="${searchURL}" target="_blank" style="color:#6b46ff; font-weight:600;">Click here to view on YouTube</a>`;
+  });
+</script>
+<script src="/JS/firebase.js" type="module"></script>
+
+</body>
+</html>
